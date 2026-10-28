@@ -1,0 +1,13 @@
+# Keeps the SHA-pinned actions in .github/workflows/ up to date for every repo that calls them.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 3
+    groups:
+      all:
+        patterns: ['*']
+    commit-message:
+      prefix: 'chore(deps)'

@@ -1,0 +1,14 @@
+# Copy to <repo>/.github/workflows/pr-title.yml
+name: pr-title
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+concurrency:
+  group: pr-title-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  pr-title:
+    uses: kleviszeneli/.github/.github/workflows/pr-title.yml@main
