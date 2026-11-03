@@ -12,8 +12,9 @@ Shared defaults and standards for my repositories.
 ## Add a repo
 
 1. On a branch, copy `standards/pr-title-caller.yml` to `.github/workflows/pr-title.yml` and
-   `standards/dependabot.yml` to `.github/dependabot.yml`. Open a PR titled
-   `chore: add repo standards`.
+   `standards/dependabot.yml` to `.github/dependabot.yml` (a Nuxt app copies
+   `standards/dependabot-nuxt.yml` instead). Open a PR titled `chore: add repo standards`.
+   Both Dependabot files are security-only: no routine version-update PRs.
 2. Once the `pr-title / lint` check has run on that PR, run
    `./apply-standards.sh <repo>` (needs `gh` and `jq`), or import `standards/ruleset-main.json`
    by hand.
@@ -23,7 +24,8 @@ Shared defaults and standards for my repositories.
 ## Change a rule
 
 Edit `standards/`, then re-run the script for each repo. Changes made in a repo's Settings page
-are overwritten on the next run.
+are overwritten on the next run. The script doesn't copy files: after changing a Dependabot file
+or the pr-title caller, copy it into each repo again in a PR.
 
 When someone else joins a repo, set `required_approving_review_count` to `1`.
 
