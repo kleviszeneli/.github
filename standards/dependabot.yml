@@ -1,24 +1,32 @@
-# Copy to <repo>/.github/dependabot.yml. Drop the npm block for repos without package.json.
+# Copy to <repo>/.github/dependabot.yml (Nuxt apps: use dependabot-nuxt.yml instead).
+# Security updates only: `open-pull-requests-limit: 0` turns version updates off, and security
+# updates ignore it (fixed limit of 10). `schedule` applies to version updates only.
+# `directory` is the folder holding package.json and the lockfile, usually the root.
+# Drop the npm block for repos without package.json.
 version: 2
 updates:
-  - package-ecosystem: npm
+  - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: monthly
-    open-pull-requests-limit: 3
+      interval: weekly
+    open-pull-requests-limit: 0
     groups:
-      minor-and-patch:
+      github-actions-security:
+        applies-to: security-updates
+        patterns: ['*']
         update-types: [minor, patch]
     commit-message:
       prefix: 'chore(deps)'
 
-  - package-ecosystem: github-actions
+  - package-ecosystem: npm
     directory: /
     schedule:
-      interval: monthly
-    open-pull-requests-limit: 3
+      interval: weekly
+    open-pull-requests-limit: 0
     groups:
-      all:
+      npm-security:
+        applies-to: security-updates
         patterns: ['*']
+        update-types: [minor, patch]
     commit-message:
       prefix: 'chore(deps)'

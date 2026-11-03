@@ -1,0 +1,59 @@
+# Copy to <repo>/.github/dependabot.yml for a Nuxt app. Same as dependabot.yml, plus family
+# groups so related packages move together in one security PR.
+# Security updates only: `open-pull-requests-limit: 0` turns version updates off, and security
+# updates ignore it (fixed limit of 10). `schedule` applies to version updates only.
+# `directory` is the folder holding package.json and the lockfile: the repo root, not Nuxt's
+# `app/` source folder.
+# A dependency joins the FIRST group it matches: keep the families above the `*` catch-all.
+# A group that matches nothing in a repo is harmless; add or drop families per repo.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    groups:
+      github-actions-security:
+        applies-to: security-updates
+        patterns: ['*']
+        update-types: [minor, patch]
+    commit-message:
+      prefix: 'chore(deps)'
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    groups:
+      vitest:
+        applies-to: security-updates
+        patterns: ['vitest', '@vitest/*']
+        update-types: [minor, patch]
+      nuxt:
+        applies-to: security-updates
+        patterns: ['nuxt', '@nuxt/*', '@nuxtjs/*', 'nitropack']
+        update-types: [minor, patch]
+      vue:
+        applies-to: security-updates
+        patterns: ['vue', '@vue/*', 'vue-router']
+        update-types: [minor, patch]
+      eslint:
+        applies-to: security-updates
+        patterns: ['eslint', '@eslint/*', 'eslint-*', '@typescript-eslint/*', '@stylistic/*']
+        update-types: [minor, patch]
+      tailwind:
+        applies-to: security-updates
+        patterns: ['tailwindcss', '@tailwindcss/*']
+        update-types: [minor, patch]
+      prismic:
+        applies-to: security-updates
+        patterns: ['@prismicio/*']
+        update-types: [minor, patch]
+      npm-security:
+        applies-to: security-updates
+        patterns: ['*']
+        update-types: [minor, patch]
+    commit-message:
+      prefix: 'chore(deps)'
