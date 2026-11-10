@@ -11,4 +11,7 @@ concurrency:
 
 jobs:
   pr-title:
+    # The called workflow can use only what is granted here; a private repo's default leaves pull-requests at none.
+    permissions:
+      pull-requests: read
     uses: kleviszeneli/.github/.github/workflows/pr-title.yml@main
